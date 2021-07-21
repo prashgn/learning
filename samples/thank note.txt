@@ -1,0 +1,6 @@
+thanks to Daniel Shiffman
+
+Processing Samples - https://processing.org/examples/
+p5 examples        - https://p5js.org/examples/
+                     https://happycoding.io/tutorials/p5js/
+p5 editor          - https://editor.p5js.org/ 
