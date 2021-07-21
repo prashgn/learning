@@ -1,0 +1,42 @@
+<!-- https://www.youtube.com/watch?v=biN3v3ef-Y0&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=5 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/cell.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var cells = [];
+    function setup() {
+      createCanvas(700, 700);
+      cells.push(new Cell());
+      cells.push(new Cell());
+      cells.push(new Cell());
+    }
+
+    function draw() {
+      background(200);
+      for (var i = 0; i < cells.length; i++) {
+        cells[i].move();
+        cells[i].show();
+      }
+    }
+
+    function mousePressed() {
+      for (var i = cells.length - 1; i >=0 ; i--) {
+        if(cells[i].clicked(mouseX,mouseY)){
+          cells.push(cells[i].mitosis());
+          cells.push(cells[i].mitosis());
+          cells.splice(i,1);
+          //console.log("clicked");
+        }
+        
+      }
+    }
+  </script>
+</html>

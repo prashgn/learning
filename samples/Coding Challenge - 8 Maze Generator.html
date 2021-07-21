@@ -1,0 +1,48 @@
+<!-- https://www.youtube.com/watch?v=8Ju_uxJ9v44&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=12 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/cell_maze.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var cell;
+    var rows, cols;
+    var w = 40;
+    var grid = [];
+    var current;
+
+    function setup() {
+      createCanvas(400, 400);
+      cols = floor(width / w);
+      rows = floor(height / w);
+
+      for (var j = 0; j < rows; j++) {
+        for (var i = 0; i < cols; i++) {
+          cell = new Cell(i, j);
+          grid.push(cell);
+        }
+      }
+      current = grid[0];
+      frameRate(5);
+    }
+
+    function draw() {
+      background(51);
+      for (var i = 0; i < grid.length; i++) {
+        grid[i].show();
+      }
+      
+      var next = current.checkNeigbors();
+      if(next){
+        next.visited = true;
+        current = next;
+      }
+    }
+  </script>
+</html>
