@@ -1,0 +1,62 @@
+<!-- https://www.youtube.com/watch?v=f0lkz2gSsIk&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=15 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var x = 0.1,
+        y = 0.0,
+        z = 0.0;
+    var a = 10.0,
+        b = 28.0,
+        c = 8.0/3.0;
+    var points = [];
+
+    function setup() {
+      createCanvas(800, 600 , WEBGL);
+      colorMode(HSB,100);
+    }
+
+    function draw() {
+      background(0);
+      var dt = 0.01;
+
+      var dx = a * (y - x) * dt;
+      var dy = (x * (b - z) - y) * dt;
+      var dz = (x * y - c * z) * dt;
+
+      x = x + dx;
+      y = y + dy;
+      z = z + dz;
+
+      append(points, new p5.Vector(x, y, z));
+
+      translate(-width / 11, -height / 11,0);
+      scale(5);
+      //translate(width/2,height/4);
+      stroke(255);
+      noFill()
+
+      //point(x,y,z);
+      beginShape();
+      var hu = 0;
+      for (let f = 0; f < points.length; f++) {
+        stroke(hu,255,255);
+        vertex(points[f].x,points[f].y,points[f].z);
+        hu += 0.1;
+        if(hu > 255){
+          hu = 0.0;
+        }
+        //point(points[f].x,points[f].y,points[f].z);
+      }
+      endShape();
+
+    }
+  </script>
+</html>

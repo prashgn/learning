@@ -1,0 +1,47 @@
+<!-- https://www.youtube.com/watch?v=_p5IH0L63wo&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=13 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var rows, cols;
+    var w = 60;
+    var terrain = [];
+
+    function setup() {
+      createCanvas(300, 200);
+      cols = floor(width / w);
+      rows = floor(height / w);
+
+      console.log("rows" + rows);
+      console.log("cols" + cols);
+      
+      for (let x = 0; x < rows; x++) {
+        terrain[x] = []; // create nested array
+        for (let y = 0; y < cols; y++) {
+          terrain[x][y] = x + " " + y;
+          console.log(terrain[x][y]);
+        }
+      }
+ 
+    }
+
+    function draw() {
+      background(0);
+      stroke(255);
+      noFill();
+
+      for (var y = 0; y < rows; y++) {
+        for (var x = 0; x < cols; x++) {
+          text(" r " + y + " c " + x  , x * w + 18, y * w + 18); // we need to display inverse of x and y position which is next to it
+        }
+      }
+    }
+  </script>
+</html>
