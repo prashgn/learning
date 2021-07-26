@@ -2,12 +2,40 @@ class Cell {
   constructor(i, j) {
     this.i = i;
     this.j = j;
-    this.walls = [true, true, false, false]; // top, right , bottom, left
+    this.walls = [true, true, true, true]; // top -0, right - 1 , bottom - 2, left - 3
     this.visited = false;
 
+    this.removeWalls = function (current, next) {
+      var x = current.i - next.i;
+      if (x === 1) {
+        current.walls[3] = false; //remove right wall
+        next.walls[1] = false; //remove left wall
+      } else if (x === -1) {
+        current.walls[1] = false; //remove right wall
+        next.walls[3] = false; //remove left wall
+      }
+
+      var y = current.j - next.j;
+      if (y === 1) {
+        current.walls[0] = false; //remove top wall
+        next.walls[2] = false; //remove bottom wall
+      } else if (y === -1) {
+        current.walls[2] = false; //remove bottom wall
+        next.walls[0] = false; //remove top wall
+      }
+    };
+
+    this.highLight = function () {
+      var x = this.i * w;
+      var y = this.j * w;
+      noStroke();
+      fill(0, 0, 255, 100);
+      rect(x, y, w, w);
+    };
+
     this.index = function (i, j) {
-      if(i < 0 || j < 0 || i > cols-1 || j > rows-1){
-        return -1 ;
+      if (i < 0 || j < 0 || i > cols - 1 || j > rows - 1) {
+        return -1;
       }
       return i + j * cols;
     };
@@ -30,6 +58,7 @@ class Cell {
       }
 
       if (this.visited) {
+        noStroke();
         fill(255, 0, 255, 100);
         rect(x, y, w, w);
       }
@@ -57,8 +86,8 @@ class Cell {
       }
 
       if (neigbors.length > 0) {
-        return neigbors[floor(random(0,neigbors.length))];
-        //return neigbors[0];
+        return neigbors[floor(random(0, neigbors.length))];
+        //return neigbors[0];  //no random selection just the first one
       } else {
         return undefined;
       }
