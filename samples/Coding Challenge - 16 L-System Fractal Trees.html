@@ -1,0 +1,99 @@
+<!-- https://www.youtube.com/watch?v=fcdNSZ9IzJM&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=19 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    // variables : A B
+    // axiom  : A
+    // rules  : (A → AB), (B → A)
+
+    // variables : F + - [ ]
+    // axiom  : F
+    // rules  : F → FF+[+F-F-F]-[-F+F+F] 
+
+    //var axiom = "A";
+    var axiom = "F";
+    var sentence = axiom;
+    var len = 100;
+    var rules = [];
+    var angle;
+    /*
+    rules[0] = {
+      a: "A",
+      b: "ABC"
+    };
+    rules[1] = {
+      a: "B",
+      b: "A"
+    };
+    */
+    rules[0] = {
+      a: "F",
+      b: "FF+[+F-F-F]-[-F+F+F]"
+    };
+
+    function setup() {
+      //noCanvas();
+      createCanvas(400,400);
+      background(51);
+      turtle();
+      angle = radians(25);
+      var button = createButton("generate");
+      button.mousePressed(generate);
+    }
+
+    function turtle() {
+      resetMatrix();
+      translate(width/2, height);
+      //stroke(255,100);
+	  stroke(0,random(200,255),random(100,155),100);
+      for(var i = 0; i < sentence.length; i++){
+        var curr = sentence.charAt(i);
+        if(curr == "F"){
+          line(0,0,0,-len);
+          translate(0, -len);
+        } else if(curr == "+"){
+          rotate(angle);
+        } else if(curr == "-"){
+          rotate(-angle);
+        } else if(curr == "["){
+          push();
+        }  else if(curr == "]"){
+          pop();
+        }
+      }
+    }
+
+
+    function generate() {
+      len *= 0.5;
+      var nxtSentence = "";
+      
+      for(var i = 0; i < sentence.length; i++){
+        var curr = sentence.charAt(i);
+        var found = false;
+        for(var j = 0; j < rules.length; j++){
+          if(curr === rules[j].a){
+            found = true;
+            nxtSentence += rules[j].b;
+            break;
+          }
+        }
+        if(!found){
+          nxtSentence += curr;
+        }
+      }
+      sentence = nxtSentence;
+      createP(sentence);
+      turtle();
+    }
+
+  </script>
+</html>

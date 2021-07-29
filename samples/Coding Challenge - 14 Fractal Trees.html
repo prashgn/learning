@@ -1,0 +1,48 @@
+<!-- https://www.youtube.com/watch?v=0jjeOYMjmDU&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=18 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var len;
+    var angle;
+    let slider;
+
+    function setup() {
+      createCanvas(800, 800);
+      len = width/4;
+      slider = createSlider(0, TWO_PI, PI/4 , 0.01);
+    }
+
+    function draw() {
+      background(51);
+      stroke(255);
+      angle = slider.value();
+      translate(width/2,height);
+      branch(len);
+    }
+
+    function branch(l) {
+      line(0,0,0,-l);
+      translate(0,-l);
+      
+      if (l>4){
+        push();
+        rotate(angle);
+        branch(l*0.67);
+        pop();
+        push();
+        rotate(-angle);
+        branch(l*0.67);
+        pop();
+      }
+    }
+
+  </script>
+</html>

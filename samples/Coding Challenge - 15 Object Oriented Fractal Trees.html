@@ -1,0 +1,65 @@
+<!-- https://www.youtube.com/watch?v=fcdNSZ9IzJM&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=18 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/branch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var len;
+    var angle;
+    let slider;
+    var root, tree = [], count = 0, leaves = [];
+
+    function setup() {
+      createCanvas(800, 800);
+      len = width / 4;
+      //slider = createSlider(0, TWO_PI, PI / 4, 0.01);
+
+      var a = createVector(width / 2, height);
+      var b = createVector(width / 2, height - len);
+      root = new Branch(a, b);
+      tree[0] = root;
+    }
+
+    function mousePressed() {
+      for (var i = tree.length - 1; i >= 0 ; i--) {
+        if(!tree[i].finished){
+         tree.push(tree[i].branchA());
+         tree.push(tree[i].branchB());
+         tree[i].finished = true;
+        }
+      }
+      count++;
+      if(count >= 6){    // you can also have it at only one level
+        for (var i = 0; i < tree.length; i++) {
+          if(!tree[i].finished){
+            var leaf = tree[i].end.copy();
+            leaves.push(leaf); 
+          }
+        }
+
+      }
+    }
+
+    function draw() {
+      background(50);
+      for (var i = 0; i < tree.length; i++) {
+        tree[i].show();
+        //tree[i].jitter();  // for shakky tree
+      }
+
+      for (var i = 0; i < leaves.length; i++) {
+        fill(0,random(200,255),random(100,155),100);
+        noStroke();
+        ellipse(leaves[i].x,leaves[i].y,8,8);
+        leaves[i].y += random(0,1);  // this will make the leaves fall, this looks beautiful if I comment it it will become like highligted
+      }
+    }
+  </script>
+</html>
