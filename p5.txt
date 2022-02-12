@@ -1,0 +1,530 @@
+p5 - Drawing  tutotrial
+
+The Coding Train training playlist 
+https://www.youtube.com/c/TheCodingTrain/playlists
+
+Code Base          - https://github.com/shiffman/LearningProcessing
+Processing Samples - https://processing.org/examples/
+p5 examples        - https://p5js.org/examples/
+                     https://happycoding.io/tutorials/p5js/
+p5 editor          - https://editor.p5js.org/ 
+p5 reference       - https://p5js.org/reference/
+x and y cordinate  - https://www.desmos.com/calculator
+
+Learning Processing: A Beginner's Guide to Programming Images, Animation, and Interaction
+https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw/playlists?view=50&sort=dd&shelf_id=10
+
+Introduction - Processing Tutorial - 7 - Videos 
+https://www.youtube.com/watch?v=2VLaIr5Ckbs&list=PLRqwX-V7Uu6ZYJC7L-r6rX6utt6wwJCyi&ab_channel=TheCodingTrain
+
+1: Pixels - Processing Tutorial - 1 - Videos 
+    function setup() {
+      createCanvas(640, 360);
+    }
+    
+    function draw() {
+      background(450);
+       // draw a line
+      stroke(300, 100, 257, 1300);
+      line(100, 50, 600, 250);
+    }
+
+2: Processing Environment - Processing Tutorial - 2 videos
+	rect(), fill(), fill with 1 parameter will consider same value for RGB comp. 
+	same r g and b value makes it grey. All 0 in rgb is black which says its dark.
+	255, 255, 255 in rb is white. 
+	Fill can have a alpha value 0 is transperant 1 being opaque.
+
+3: Interaction - Processing Tutorial - 3 videos
+	https://www.youtube.com/watch?v=o8dffrZ86gs&list=PLRqwX-V7Uu6by61pbhdvyEpIeymlmnXzD&ab_channel=TheCodingTrain
+	line(pmouseX,pmouseY,mouseX,mouseY); - Mouse event - mouseX is the X co-ordinate of mouse and is the previous value.
+	If the background() is defined in the setup the slate wont clear. If the background is in draw it will clear.
+	All the statment in the draw is kind off executed in one step at the end together.
+	function mousePressed(){...}, mouseIsPressed, keyPressed(), keyIsPressed, mouseReleased()
+
+4: Variables - Processing Tutorial
+	https://www.youtube.com/watch?v=B-ycSR3ntik&list=PLRqwX-V7Uu6aFNOgoIMSbSYOkKNTo89uf&ab_channel=TheCodingTrain
+	Video - 2 to move the circle one line down in the canvas till the end of the frame and start again,
+	
+	let x = 0;                     function draw() {
+    let y = 10;                      background(220);
+                                     //for (let i = 1; i <= 10; i++) {
+    function setup() {               //  circle(x * i, x * i, 20);
+      createCanvas(100, 100);        //}
+    }                                circle(x, y, 20);
+                                     if (x < width) {
+                                       x++;
+                                     } else {
+                                       x = 0;
+                                       if (y < height) {
+                                         y = y + 10;
+                                       } else {
+                                         y = 10;
+                                       }
+                                     }
+                                   }
+	Bouncing Ball in the x axis,        
+	                                    function draw() {
+	let x = 1;                            background(220);
+    let inc = true;                     
+                                          circle(x, 30, 20);
+    function setup() {                    if (x >= width) {
+      createCanvas(100, 100);               inc = false;
+    }                                     }
+                                          if (x <= 0) {
+                                            inc = true;
+                                          }
+                                        
+                                          if (inc) {
+                                            x++;
+                                          } else {
+                                            x--;
+                                          }
+                                        }
+    The other logic u can use is, 
+	x = x + speed; 
+	if (x >= width) {
+	  speed = -10;
+	}
+	if (x <= 0) {
+	  speed = 10;
+	}
+	Even better code,
+	if (x >= width || x <= 0) {
+	  speed = speed * -1; // to reverse the number multiply by -ve
+	}
+	
+    
+    random(), map(), constraint()
+    Random circles across the screen,
+	let x;                         function draw() {
+    let y;                           stroke(random(0, 255), random(0, 255), random(0, 255));
+                                     strokeWeight(random(5, 25));
+    function setup() {               x = random(0, width);
+      createCanvas(500, 500);        y = random(0, height);
+      background(220);               ellipse(x, y, random(5, 25));
+    }                              }
+	
+	print(); prints in the console
+    
+5: Conditionals - Processing Tutorial
+	https://www.youtube.com/watch?v=wsI6N9hfW7E&list=PLRqwX-V7Uu6YqykuLs00261JCqnL_NNZ_&ab_channel=TheCodingTrain
+	Logic to create 4 quadrants and fill the quadrant with some color when mouse enters that quadrant
+	
+	function setup() {                               function draw() {
+      createCanvas(500, 500);                          background(220);
+                                                       stroke(255, 204, 0);
+      line(width / 2, 0, width / 2, height);           fill(255, 204, 0);
+      // (250,0) - (250.500)                           
+      line( 0, height / 2, width , height / 2);        if(mouseX > 0 & mouseX < 250 &
+      // (0,250) - (500, 250)                             mouseY > 0 & mouseY < 250){
+    }                                                    rect(0, 0, 250, 250);
+                                                       }  
+                                                       if(mouseX > 250 & mouseX < 500 &
+                                                          mouseY > 0 & mouseY < 250){
+                                                         rect(250, 0, 250, 250);
+                                                       }
+                                                       if(mouseX > 0 & mouseX < 250 &
+                                                          mouseY > 250 & mouseY < 500){
+                                                         rect(0, 250, 250, 250);
+                                                       }  
+                                                       if(mouseX > 250 & mouseX < 500 &
+                                                          mouseY > 250 & mouseY < 500){
+                                                         rect(250, 250, 250, 250);
+                                                       }
+                                                     }
+		if (going) { going = false;} else{going = true;} instead of this u can use "going = !going;" 
+
+
+6: Loops - Processing Tutorial
+	https://www.youtube.com/watch?v=RtAPBvz6k0Y&list=PLRqwX-V7Uu6bm-3M4Wntd4yYZGKwiKfrQ&ab_channel=TheCodingTrain
+	while loop and for loop and made a grid pattern within the canvas
+	
+	Following logic draws vertical pattern,
+	let x = 0;                   function draw() {
+                                   while(x<width){
+    function setup() {               line(x, 0 , x, height);
+      createCanvas(400, 400);        x = x + 25;
+      background(0);               }
+      stroke(255);               }
+    }
+      
+	Excercise to show vertical grids one line at a time,
+	let x = 0;                    function draw() {
+    let b = true;                   while(b){
+                                      line(x, 0 , x, height);
+    function setup() {                b = false;
+      createCanvas(400, 400);       }
+      background(0);                x = x + 25;
+      stroke(255);                  if (x < width){
+      frameRate(5);                   b = true;
+    }                               }
+                                  }
+								  
+    the above logic could also be done without framRate option it done through proper nested loop,
+	
+	let x = 0;                   function draw() {
+    let y = 0;                     background(0);          
+                                   stroke(255); 
+    function setup() {             x = 0;
+      createCanvas(400, 400);      while(x<=y){     
+    }                                line(x, 0 , x, height);
+                                     x = x + 20;
+                                   }
+                                  y = y + 1;
+                                 }
+    m * n grid pattern,
+	let x = 0;                   function draw() {
+    let y = 0;                     while(x<width){
+                                     line(x, 0 , x, height);
+    function setup() {               x = x + 25;
+      createCanvas(400, 400);      }
+      background(0);               while(y<height){
+      stroke(255);                   line(0, y , width, y);
+    }                                y = y + 25;
+                                   }
+                                 }
+	same using for loops,
+	let x = 0;                  function draw() {
+    let y = 0;                    for (x = 0 ; x < width ; x = x + 25){
+                                    line(x, 0 , x, height);
+    function setup() {            }
+      createCanvas(400, 400);     for (y = 0 ; y < height ; y = y + 25){
+      background(0);                line(0, y , width, y);
+      stroke(255);                }
+    }                           }
+    
+   	logic to have the grid filled with rectangles the below code doesnt keep flashing, you can remove the b field logic to make it flickering
+	let x = 0;                      function draw() {
+    let y = 0;                        if (b == true){
+    let b = true;                       for (x = 0 ; x < width ; x = x + 25){
+                                          for (y = 0 ; y < height ; y = y + 25){
+    function setup() {                      //fill(random(1,255),random(1,255),random(1,255));
+      createCanvas(400, 400);               fill(random(1,255)); 
+      background(0);                        rect(x, y, 25, 25);
+    }                                     }  
+                                        }
+                                        b = false;
+                                      }
+                                    }
+ 
+7: Functions - Processing Tutorial
+	https://www.youtube.com/watch?v=XCu7JSkgl04&list=PLRqwX-V7Uu6ajGB2OI3hl5DZsD1Fw1WzR&ab_channel=TheCodingTrain
+	
+	below logic is for moving ball in the frame,
+	
+	let x = 0;                                   function draw() {
+    let y = 0;                                     background(0);
+    let xs = 2.7;                                  stroke(250);
+    let ys = 3.2;                                  
+                                                   ellipse(x,y,32,32);
+    function setup() {                             x = x + xs;
+      createCanvas(400, 400);                      y = y + ys;
+    }                                              
+                                                   if(x >= width || x <= 0){
+                                                      xs = xs * -1;
+                                                   }
+                                                   if(y >= height || y <= 0){
+                                                      ys = ys * -1;
+                                                   }
+                                                 }
+    Modularized,
+	let x = 0;                       function moveBall(){
+    let y = 0;                         x = x + xs;
+    let xs = 2.7;                      y = y + ys;   
+    let ys = 3.2;                    }
+                                     function displayBall(){
+    function setup() {                 background(0);
+      createCanvas(400, 400);          stroke(250);
+    }                                  ellipse(x,y,32,32);
+                                     }
+    function draw() {                
+      displayBall();                 function checkEdge(){
+      moveBall();                      if(x >= width || x <= 0){
+      checkEdge();                        xs = xs * -1;
+    }                                  }
+                                       if(y >= height || y <= 0){
+                                          ys = ys * -1;
+                                       }  
+                                     }
+    
+    Star Pattern,
+	let x,xx;                       function star( xx,yy){
+    let y,yy;                         fill(127);
+                                      stroke(255);
+    function setup() {                beginShape();
+      createCanvas(400, 400);         vertex(xx,yy-50);
+    }                                 vertex(xx+14,yy-20);
+                                      vertex(xx+47,yy-15);
+    function draw() {                 vertex(xx+23,yy+7);
+      background(220);                vertex(xx+29,yy+40);
+      x = 75;                         vertex(xx,yy+25);
+      y = 75;                         vertex(xx-29,yy+40);
+      star(x,y);                      vertex(xx-23,yy+7);
+      x = 150;                        vertex(xx-47,yy-15);
+      y = 150;                        vertex(xx-14,yy-20);
+      star(x,y);                      endShape(CLOSE);
+    }                               }
+    
+	The above program to generate shape on mouse click,
+	
+    //the background method can be moved from star to setup if u dont want previous stars
+    function mousePressed(){
+      if(mouseX < width && mouseX >=0)
+      {
+        if(mouseY < height && mouseY >=0)
+        {
+          star(mouseX,mouseY);    
+        }   
+      }
+    }
+	
+
+8: Object-Oriented Programming - Processing Tutorial
+	https://www.youtube.com/watch?v=YcbcfkLzgvs&list=PLRqwX-V7Uu6bb7z2IJaTlzwzIg_5yvL4i&ab_channel=TheCodingTrain
+	
+	let bug1; // Declare objects               // Jitter class
+	let bug2;                                  class Jitter {
+	                                           constructor( tmpX, tmpY) {
+	function setup() {                         	this.x = tmpX;
+	createCanvas(710, 400);                    	this.y = tmpY;
+	// Create object                           	this.diameter = 15;//random(10, 30);
+	bug1 = new Jitter(100,200);                	this.speed = 1;
+	bug2 = new Jitter(114,200);                }
+	}                                          
+	                                           move() {
+	function draw() {                          	this.x += random(-this.speed, this.speed);
+	background(50, 89, 100);                   	this.y += random(-this.speed, this.speed);
+	//Collision Detection                      }
+	if(bug1.overlaps(bug2)){                   
+		background(150,189, 100);              overlaps(otherJitter) {
+	}                                          	let d = dist(this.x,this.y, otherJitter.x,otherJitter.y);
+	//bug1.move();                             	if(d  <= (this.diameter + otherJitter.diameter)/2 ){ //since it is diamater hence divided by 2
+	bug1.display();                            	return true; 
+	//bug2.move();                             	}
+	bug2.display();                            	else{
+	}                                          	return false;  
+	                                           	}
+	                                           }
+	                                           
+	                                           display() {
+	                                           	ellipse(this.x, this.y, this.diameter, this.diameter);
+	                                           }
+	                                           } //main class end
+
+
+9: Arrays - Processing Tutorial
+	https://www.youtube.com/watch?v=NptnmWvkbTw&list=PLRqwX-V7Uu6bO9RKxHObluh-aPgrrvb4a&ab_channel=TheCodingTrain
+	
+	let bugs = []; // array of Jitter objects
+    let bug2 = [1]; // array of Jitter objects
+    
+    function setup() {
+      createCanvas(710, 400);
+      // Create objects
+      bug2[0] = new Jitter();  
+	  //2 styles
+      for (let i = 0; i < 50; i++) {
+        bugs.push(new Jitter());
+      }
+    }
+    
+    function draw() {
+      background(50, 89, 100);
+      for (let i = 0; i < bugs.length; i++) {
+        bugs[i].move();
+        bugs[i].display();
+      }
+    }
+    
+    // Jitter class
+    class Jitter {
+      constructor() {
+        this.x = random(width);
+        this.y = random(height);
+        this.diameter = random(10, 30);
+        this.speed = 1;
+      }
+    
+      move() {
+        this.x += random(-this.speed, this.speed);
+        this.y += random(-this.speed, this.speed);
+      }
+    
+      display() {
+        ellipse(this.x, this.y, this.diameter, this.diameter);
+      }
+    }
+
+10: Images and Pixels - Processing Tutorial
+	https://www.youtube.com/watch?v=-f0WEitGmiw&list=PLRqwX-V7Uu6YB9x6f23CBftiyx0u_5sO9&ab_channel=TheCodingTrain
+	
+	Load a Image and rotate it to 45 degress
+	var img;
+
+    function setup() {
+       createCanvas(600, 600);
+       img = loadImage('https://www.openimagedenoise.org/images/moana_16spp_oidn.jpg');
+    }
+    
+    function draw() {
+       background('#111');
+       translate(width /2 , height/2 );
+       rotate(PI / 180 * 45);
+       imageMode(CENTER);
+       image(img, 0, 0, 600, 600);
+    }
+	
+	To have a Grddient effect
+	
+	function setup() {
+      createCanvas(400, 400);
+    }
+    
+    function draw() {
+      //background(0);
+      let green_col = color(158, 255, 168);
+      loadPixels();
+      let d = pixelDensity();
+      // 1 D Array for pixels - to fill a specified color 
+      let halfImage = 4 * (width * d) * ((height / 2) * d);
+      /*
+      for (let i = 0; i < halfImage; i += 4) {
+        pixels[i] = red(green_col);
+        pixels[i + 1] = green(green_col);
+        pixels[i + 2] = blue(green_col);
+        pixels[i + 3] = alpha(green_col);
+      }
+      */
+      // 2 D Array for pixels with Gradient Example
+      for (let x = 0; x < width; x++) {
+        for (let y = 0; y < height; y++) {
+          // loop over
+          index = 4 * ((( d + y) * width)  + ( d + x));
+          pixels[index]     = red(color(0, 0, 0));          // gives a Gradient effect
+          pixels[index + 1] = green(color(0, y / 2, 0));    // gives a Gradient effect
+          pixels[index + 2] = blue(color(0, 0, x / 2)) ;
+          pixels[index + 3] = alpha(color(0, 0, 0)) ;
+        }
+      }
+	  // Dark at the center 
+	  for (let x = 0; x < width; x++) {
+        for (let y = 0; y < height; y++) {
+          let distance = dist(x,y,width / 2, height / 2);
+          // loop over
+          index = 4 * ((( d + y) * width)  + ( d + x));
+          pixels[index]     = red(color(distance)) ;
+          pixels[index + 1] = green(color(distance));
+          pixels[index + 2] = blue(color(distance)) ;
+          pixels[index + 3] = alpha(color(0, 0, 0)) ;
+        }
+      }
+	  // Later implemented sin(x) * amplitude in the above thing instead of y /2 and also implemented perlin noise - noise(x) * width just to see the patterns
+      updatePixels();
+    }
+	-----------------------------
+	
+	var img;
+
+    function preload() {
+      
+      img = loadImage(
+        "https://4.bp.blogspot.com/-fn6V-JSjJZ4/TlF9o1qpz7I/AAAAAAAAC6o/b091qPCG5jI/s1600/Funny+tree+frog+jumping+1.jpg"
+      );
+      
+    }
+    
+    function setup() {
+      createCanvas(576, 432);
+      image(img, 0, 0, width, height);
+      let d = pixelDensity();
+      
+      loadPixels();
+      let ImageSize = 4 * (width * d) * (height * d );
+      
+      for (let i = 0; i < ImageSize; i++) {
+        pixels[i + ImageSize] = img.pixels[i];
+        
+      }
+      updatePixels();
+    }
+	-----------------------------
+	
+	var img;
+
+    function preload() {
+      img = loadImage(
+        "https://4.bp.blogspot.com/-fn6V-JSjJZ4/TlF9o1qpz7I/AAAAAAAAC6o/b091qPCG5jI/s1600/Funny+tree+frog+jumping+1.jpg"
+      );
+    }
+    
+    function setup() {
+      createCanvas(576, 432);
+      //image(img, 0, 0, width, height);
+    }
+    function draw() {
+      img.loadPixels();
+      loadPixels();
+      let d = 1;
+      for (let x = 0; x < width; x++) {
+        for (let y = 0; y < height * 4; y++) {
+          // loop over
+          let loc = x + y * width;
+          pixels[loc] = img.pixels[loc] + 100 ; // to increase or decrease the brightness by changing the value of 100
+        }
+      }
+    
+      updatePixels();
+    }
+
+-------------------------------------
+let img;
+
+function preload() {
+  img = loadImage("https://4.bp.blogspot.com/-fn6V-JSjJZ4/TlF9o1qpz7I/AAAAAAAAC6o/b091qPCG5jI/s1600/Funny+tree+frog+jumping+1.jpg");
+    /*"https://happycoding.io/images/stanley-1.jpg"*/
+}
+
+function setup() {
+  createCanvas(img.width, img.height);
+}
+
+function draw() {
+  //image(img, 0, 0);
+
+  img.loadPixels();
+  let d = pixelDensity();
+  loadPixels();
+  // Loop over every pixel in the image
+
+  for (let x = 0; x < img.width; x++) {
+    for (let y = 0; y < img.height; y++) {
+      
+      let originalColor = img.get(x, y);
+
+      const r = red(originalColor);
+      const g = green(originalColor);
+      const b = blue(originalColor);
+      
+      let distance = dist(x,y,mouseX, mouseY);
+      //dist(x,y,width / 2, height / 2);
+      let factor = map(distance, 0, 200, 2,0);
+      index = 4 * ((d + y) * width + (d + x));
+      pixels[index] = r * factor ; 
+      pixels[index + 1] = g * factor ; 
+      pixels[index + 2] = b * factor  ;
+      pixels[index + 3] = alpha(color(0, 0, 0));
+    }
+  }
+
+  updatePixels();
+}
+
+
+
+
+11: Video - Processing Tutorial
+
+12: Kinect and Processing Tutorial
+
+13: Text and Data - Processing Tutorial
