@@ -1,0 +1,37 @@
+<!-- https://www.youtube.com/watch?v=0jjeOYMjmDU&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=18 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    
+    function setup() {
+      createCanvas(600, 600);
+    }
+
+    function draw() {
+      background(51);
+      noFill();
+      stroke(160, 180, 240,200);
+      drawCircle(300, 300, 300);
+
+    }
+    function drawCircle(x,y,size){
+      ellipse(x,y,size);
+      if(size > 2){
+        drawCircle(x+size*0.5,y,size*0.5);
+        drawCircle(x-size*0.5,y,size*0.5);
+        drawCircle(x,y-size*0.5,size*0.5);
+        //drawCircle(x,y+size*0.5,size*0.5);
+        //console.log(size);
+      }
+    }
+
+  </script>
+</html>

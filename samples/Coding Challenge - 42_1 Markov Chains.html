@@ -1,0 +1,51 @@
+<!-- https://www.youtube.com/watch?v=eGFJ8vugIWA&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=52 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var txt = "this is for testing. thit that what thih that";
+    var order = 3;
+    var ngram = {}; //[];
+    var button;
+
+    function setup() {
+      noCanvas();
+      for (var i = 0; i <= txt.length - order; i++) {
+        var gram = txt.substring(i, i + order);
+        //ngram.push(gram);
+        if (!ngram[gram]) {
+          ngram[gram] = [];
+        }
+        ngram[gram].push(txt.charAt(i + order));
+      }
+      button = createButton("generate");
+      button.mousePressed(markovIt);
+      console.log(ngram);
+    }
+
+    function markovIt() {
+      var currGram = txt.substring(0, order);
+
+      var result = currGram;
+
+      for (var i = 0; i <= 10; i++) {
+        var possibilities = ngram[currGram];
+        if(!possibilities){
+          break;
+        }
+        var next = random(possibilities);
+        result += next;
+        var len = result.length;
+        currGram = result.substring(len - order, len);
+      }
+      createP(result);
+    }
+  </script>
+</html>

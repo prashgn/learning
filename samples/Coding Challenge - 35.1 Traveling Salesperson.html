@@ -1,0 +1,90 @@
+<!-- https://www.youtube.com/watch?v=BAejnwN4Ccw&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=39 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var cities = [];
+    var citiescnt = 4;
+    var recordDistance;
+    var bestEver;
+
+    function setup() {
+      createCanvas(600, 600);
+      for (var i = 0; i < citiescnt; i++) {
+        var v = createVector(random(width), random(height));
+        cities[i] = v;
+      }
+      var d = calcDistance(cities);
+      recordDistance = d;
+      bestEver = cities.slice(); // to copy the array
+    }
+
+    function draw() {
+      /*to print the points*/
+      background(51);
+      fill(255);
+      for (var i = 0; i < cities.length; i++) {
+        ellipse(cities[i].x, cities[i].y, 8, 8);
+      }
+
+      /*to print the lines for all the points*/
+      stroke(255);
+      strokeWeight(1);
+      noFill();
+      beginShape();
+      for (var i = 0; i < cities.length; i++) {
+        vertex(cities[i].x, cities[i].y);
+      }
+      endShape();
+
+      /*to print the lines for the best path*/
+      stroke(255, 0, 255);
+      strokeWeight(4);
+      noFill();
+      beginShape();
+      for (var i = 0; i < bestEver.length; i++) {
+        vertex(bestEver[i].x, bestEver[i].y);
+      }
+      endShape();
+
+      /*this is a random values which are picked just for understanding - bad brute force*/
+      var i = floor(random(cities.length));
+      var j = floor(random(cities.length));
+      swap(cities, i, j);
+
+      var d = calcDistance(cities);
+      if (d < recordDistance) {
+        recordDistance = d;
+        bestEver = cities.slice();
+        console.log(recordDistance);
+      }
+    }
+
+    function swap(arr, i, j) {
+      var tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+
+    function calcDistance(points) {
+      var sum = 0;
+      for (var i = 0; i < points.length - 1; i++) {
+        var d = dist(
+          points[i].x,
+          points[i].y,
+          points[i + 1].x,
+          points[i + 1].y
+        );
+        sum += d;
+      }
+      return sum;
+    }
+  </script>
+</html>

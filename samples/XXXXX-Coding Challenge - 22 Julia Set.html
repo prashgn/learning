@@ -1,0 +1,77 @@
+<!-- https://www.youtube.com/watch?v=fAsaSkmbF5s&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=25 -->
+<!-- https://en.wikipedia.org/wiki/Julia_set-->
+
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    function setup() {
+      createCanvas(800, 800);
+      colorMode(RGB,1);
+    }
+
+    function draw() {
+      background(255);
+
+      var w = 2;
+      var h = (w * height) / width;
+
+      var xmin = -w / 2;
+      var ymin = -h / 2;
+
+      loadPixels();
+      var max_iteration = 100;
+
+      var xmax = xmin + w;
+      var ymax = ymin + h;
+
+      var dx = (xmax - xmin) / (width);
+      var dy = (ymax - ymin) / (height);
+
+      var y = ymin;
+
+      for (let j = 0; j < height; j++) {
+        var x = xmin;
+        for (let i = 0; i < width; i++) {
+          var a = x;
+          var b = y;
+          var n = 0;
+
+          while (n < max_iteration) {
+            var aa = a * a;
+            var bb = b * b;
+
+            if (aa + bb > 4) {
+              break;
+            }
+
+            var twoab = 2 * a * b;
+
+            a = aa - bb - 0.70176; //Julia constant
+            b = twoab - 0.3842; //Julia constant
+
+            n++;
+          }
+
+          if (n == max_iteration) {
+            pixels[i + j * width] = color(0);
+          } else {
+            pixels[i + j * width] = color(sqrt(float(n) / max_iteration));
+          }
+          x += dx;
+        }
+        y += dy;
+      }
+      updatePixels();
+    
+    }
+
+  </script>
+</html>

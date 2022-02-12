@@ -1,0 +1,113 @@
+<!-- https://www.youtube.com/watch?v=flQgnCUxHlw&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=37 -->
+<!-- https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf  -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var r = 10; //4; 
+    var k = 30;
+    var grid = [];
+    var w = r / Math.sqrt(2);
+    var active = [];
+    var cols = 0;
+    var rows = 0;
+
+    function setup() {
+      createCanvas(400, 400);
+      background(0);
+      strokeWeight(4);
+
+      //STEP 0
+      cols = floor(width / w);
+      rows = floor(height / w);
+
+      for (var i = 0; i < rows * cols; i++) {
+        grid[i] = undefined;
+      }
+
+      //STEP 1
+      var x = random(width);
+      var y = random(height);
+      var i = floor(x / w);
+      var j = floor(y / w);
+
+      var pos = createVector(x, y);
+      grid[i + j * cols] = pos;
+      active.push(pos);
+      /*
+      for(var i = 0; i<1000;i++){
+        stroke(255);
+        point(random(width),random(height));
+      }
+      */
+    }
+
+    function draw() {
+      background(0);
+
+      //noLoop();
+      //while (active.length > 0){ //this while loop does everything in one go
+      if (active.length > 0) {
+        var randIndex = floor(random(active.length));
+        var pos = active[randIndex];
+
+        var found = false;
+
+        for (var n = 0; n < k; n++) {
+          var sample = p5.Vector.random2D();
+          var m = random(r, 2 * r);
+          sample.setMag(m);
+          sample.add(pos);
+
+          var coll = floor(sample.x / w);
+          var row = floor(sample.y / w);
+
+          if (coll > -1 && row > -1 && coll< cols && row < rows && !grid[coll + row * cols]) {
+            var ok = true;
+            for (var i = -1; i <= 1; i++) {
+              for (var j = -1; j <= 1; j++) {
+                var index = (coll + i + (row + j)) * cols;
+                var neighbour = grid[index];
+                if (neighbour) {
+                  var d = p5.Vector.dist(sample, neighbour);
+                  if (d < r) {
+                    ok = false;
+                  }
+                }
+              }
+            }
+            if (ok) {
+              found = true;
+              grid[coll + row * cols] = sample;
+              active.push(sample);
+              //break;
+            }
+          }
+        }
+        if (!found) {
+          active.splice(randIndex, 1);
+        }
+      }
+
+      for (var i = 0; i < grid.length; i++) {
+        if (grid[i]) {
+          stroke(255);
+          strokeWeight(r*0.5);
+          point(grid[i].x, grid[i].y);
+        }
+      }
+      for (var i = 0; i < active.length; i++) {
+        stroke(255, 0, 255);
+        strokeWeight(r*0.5);
+        point(active[i].x, active[i].y);
+      }
+    }
+  </script>
+</html>

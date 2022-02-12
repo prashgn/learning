@@ -1,0 +1,75 @@
+<!-- https://www.youtube.com/watch?v=z86cx2A4_3E&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=22 -->
+<!-- https://en.wikipedia.org/wiki/Superellipse -->
+<!-- http://paulbourke.net/geometry/supershape/ -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+ 
+    var slider;
+    function setup() {
+      createCanvas(800, 800);
+      slider = createSlider(0,10,2,0.1);
+    }
+
+    function sgn(val) {
+      if(val > 0 ){
+        return 1;
+      } else if(val < 0 ){
+        return -1;
+      }else{
+        return 0;
+      }
+
+    }
+
+    function draw() {
+      background(51);
+      translate(width/2,height/2);
+      
+      var r = 100;
+      var a = 300; // diff values of a and b can give different shapes
+      var b = 200;
+      var n = slider.value();  // if n == 2 then we will get the circle bcoz its the formulea of circle
+      stroke(255);
+      noFill();
+
+      // logic to draw a circle without using the ellipse function
+      /*
+      beginShape();
+      for(var i = 0 ; i <= TWO_PI; i += 0.1){ // i is the angle
+        var x = r * cos(i); // cos of the angle 
+        var y = r * sin(i); // sin of the angle
+        //point(x,y);
+        vertex(x,y);
+      }
+      //endShape();  // in this case the last dot is missing between the begin and end
+      endShape(CLOSE);
+      */
+
+      // Logic for super ellipse
+      beginShape();
+      for(var i = 0 ; i <= TWO_PI; i += 0.1){
+        var na = 2 / n;
+        var x = pow(abs(cos(i)),na) * a * sgn(cos(i)); // formulea from wiki 
+        var y = pow(abs(sin(i)),na) * b * sgn(sin(i)); // formulea from wiki 
+        //point(x,y);
+        vertex(x,y);
+      }
+      //endShape();  // in this case the last dot is missing between the begin and end
+      endShape(CLOSE);
+      
+
+    }
+
+
+
+  </script>
+</html>

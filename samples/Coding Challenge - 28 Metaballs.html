@@ -1,0 +1,57 @@
+<!-- https://www.youtube.com/watch?v=ccYLb7cLB1I&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=33 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/blob.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    
+    let b = [];
+    function setup() {
+      createCanvas(500, 400);
+      colorMode(HSB);
+      frameRate(120);
+      for(let i = 0;i<3;i++){
+        b[i] = new Blob(random(width),random(height));
+      }
+      
+    }
+
+    function draw() {
+      background(51);
+      loadPixels();
+      let img = createImage(500, 500);
+      img.loadPixels();
+      for (let i = 0; i < img.width; i++) {
+        for (let j = 0; j < img.height; j++) {
+          //let d = dist(i,j,width/2,height/2);
+          //img.set(i, j, color(i, 0, j));
+          let sum = 0
+          for(let k = 0;k<b.length;k++){
+            let d = dist(i,j,b[k].pos.x,b[k].pos.y);
+            //let col = 1000 * (b[i].r/d);
+            sum += 10 * (b[k].r/d);
+          }
+          //img.set(i, j, color(sum%255,255,255));
+          //img.set(i, j, color(constrain(sum,0,220),255,255));
+          img.set(i, j, color(sum,255,255));
+          //img.set(i, j, color(sum));
+        }
+      }
+      img.updatePixels();
+      for(let i = 0;i<b.length;i++){
+        b[i].update();
+      }
+      
+      image(img, 0, 0);
+
+    }
+
+  </script>
+</html>

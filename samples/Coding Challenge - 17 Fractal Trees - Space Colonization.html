@@ -1,0 +1,33 @@
+<!-- https://www.youtube.com/watch?v=kKT0v3qhIQY&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=20 -->
+<html>
+  <head>
+    <!-- src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js" -->
+    <!--http://algorithmicbotany.org/papers/colonization.egwnp2007.html  -->
+    <!--http://algorithmicbotany.org/ -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/branch_17.js"></script>
+    <script src="code/leaf_17.js"></script>
+    <script src="code/tree_17.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var tree;
+    var max_dist = 20;
+    var min_dist = 10;
+
+    function setup() {
+      createCanvas(400,400);
+      background(51);
+      tree = new Tree();
+    }
+
+    function draw() {
+      tree.show();
+      tree.grow();
+    }
+  </script>
+</html>

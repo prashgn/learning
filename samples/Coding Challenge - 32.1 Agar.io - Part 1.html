@@ -1,0 +1,48 @@
+<!-- https://www.youtube.com/watch?v=cXgA1d_E-jY&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=34 -->
+<!--  -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/blob-agar.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var blob;
+    var blobs = [];
+    var zoom = 1;
+    function setup() {
+      createCanvas(600, 600);
+      blob = new Blob(0, 0, 64);
+      for (var i = 0; i < 50; i++) {
+          var x = random(-width,width);
+          var y = random(-height,height);
+           
+        blobs.push(new Blob(x,y, random(8, 24)));
+      }
+    }
+
+    function draw() {
+      background(51);
+      translate(width/2,height/2);
+      var newzoom = 64/blob.r;
+      zoom = lerp(zoom,newzoom,0.1); 
+      scale(zoom);
+      translate(-blob.pos.x, -blob.pos.y);
+
+      for (var i = blobs.length - 1; i >= 0; i--) {
+        blobs[i].show();
+        if(blob.eats(blobs[i])){
+            blobs.splice(i,1);
+        }
+      }
+      blob.show();
+      blob.update();
+      
+    }
+  </script>
+</html>

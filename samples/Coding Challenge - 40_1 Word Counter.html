@@ -1,0 +1,50 @@
+<!-- https://www.youtube.com/watch?v=unm0BLor8aE&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=49 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var txt,
+      allwords,
+      tokens,
+      counts = {}, //Object
+      keys = []; //Array -> Keys are ordered
+
+    function preload() {
+      txt = loadStrings("addons/tabletop.js");
+      //console.log(txt)
+    }
+    function setup() {
+      noCanvas();
+      allwords = txt.join("\n");
+      tokens = allwords.split(/\W+/);
+      for (var i = 0; i < tokens.length; i++) {
+        var word = tokens[i].toLowerCase();
+        if (!/\d+/.test(word) && word != "") {
+          if (counts[word] === undefined) {
+            counts[word] = 1;
+            keys.push(word);
+          } else {
+            counts[word] = counts[word] + 1;
+          }
+        }
+      }
+      keys.sort(compare);
+      for (var i = 0; i < keys.length; i++) {
+          createDiv(keys[i] + "  " + counts[keys[i]]);
+      }
+    }
+    function compare(a,b){
+        var cntA = counts[a];
+        var cntB = counts[b];
+        return cntB-cntA;
+        
+    }
+  </script>
+</html>

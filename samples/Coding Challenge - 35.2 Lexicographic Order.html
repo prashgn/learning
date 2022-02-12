@@ -1,0 +1,67 @@
+<!-- https://www.youtube.com/watch?v=goUlyp4rwiU&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=40&ab_channel=TheCodingTrain -->
+<!-- https://www.quora.com/How-would-you-explain-an-algorithm-that-generates-permutations-using-lexicographic-ordering  -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var vals = [5,0, 1, 7];
+
+    function setup() {
+      createCanvas(600, 600);
+    }
+
+    function draw() {
+      background(51);
+      console.log(vals);
+      /*to find the position of the max element*/
+      var maxVali = -1;
+      for (var i = 0; i < vals.length - 1; i++) {
+        if (vals[i] < vals[i + 1]) {
+          maxVali = i;
+        }
+      }
+      if (maxVali == -1) {
+        noLoop();
+        console.log("finished");
+      }
+      //Step 2
+      var maxValj = -1;
+      for (var j = 0; j < vals.length ; j++) {
+        if (vals[maxVali] < vals[j]) {
+          maxValj = j;
+        } 
+      }
+      //Step 3
+      swap(vals,maxVali,maxValj);
+
+      //Step 4 - reverse from maxI + 1 to the end
+      var endArray = vals.splice(maxVali + 1);
+      endArray.reverse();
+      vals = vals.concat(endArray);
+
+      textSize(64);
+      var s = "";
+      for (var i = 0; i < vals.length ; i++) {
+        s = s +  vals[i]; 
+      }
+      fill(255);
+      text(s,20,height/2);
+
+    }
+
+    function swap(arr, i, j) {
+      var tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+
+
+  </script>
+</html>

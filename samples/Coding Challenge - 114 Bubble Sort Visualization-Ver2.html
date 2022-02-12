@@ -1,0 +1,93 @@
+<!-- https://www.youtube.com/watch?v=67k3I2GxTH8 -->
+<!-- https://bost.ocks.org/mike/algorithms/ -->
+
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var values = [];
+    var i = 0;
+    var n = 0;
+    var j = 0;
+
+    function setup() {
+      createCanvas(800, 600);
+      frameRate(15);
+      /* //Ver1
+      for (i = 0; i <= width/10; i++) {
+        //values[i] = random(height); //this is the basic using random
+        //values[i] = map(i,0,width,height,0) + random(-10,10); // other technique
+        values[i] = noise(i / 100.0) * height; //using the perlin noise
+      }
+      */
+      //values = sort(values); //using std methods
+      /* //this is the 1st step to sort the algorithm
+      for (i = 0; i < values.length; i++) {
+        for (j = 0; j < values.length - i - 1; j++) {
+            if(values[j] >= values[j+1]){
+                var tmp;
+                tmp = values[j];
+                values[j] = values[j+1];
+                values[j+1] = tmp;            
+            }
+        }
+      }
+      */
+      for (i = 0; i <= (width-10)/10; i++) {
+        values[i] = random(height);
+        //values[i] = noise(i / 100.0) * height; //using the perlin noise
+      }
+    }
+
+    function draw() {
+      background(201);
+      //this is to loop all inner loop in one go so directly the tallest reaches the end, it is selection sort visulaization
+      /*
+      if (n <= values.length) {
+        for (j = 0; j < values.length - n - 1; j++) {
+          if (values[j] >= values[j + 1]) {
+            var tmp;
+            tmp = values[j];
+            values[j] = values[j + 1];
+            values[j + 1] = tmp;
+          }
+        }
+      }
+      n++;
+      */
+      //this is the loop slowly
+      if (values[j] >= values[j + 1]) {
+        var tmp;
+        tmp = values[j];
+        values[j] = values[j + 1];
+        values[j + 1] = tmp;
+      }
+      if (n <= values.length) {
+        j = j + 1;
+        if (j > values.length - n - 1) {
+          j = 0;
+          n++;
+        }
+      }
+
+      for (i = 0; i <= values.length; i++) {
+        if (i === j) {
+          stroke(0, 204, 0,123);
+          fill('rgba(0,255,0, 0.5)');
+        } else {
+          stroke(51);
+          fill('rgba(0,0,0, 0.5)');
+        }
+        //line(i, height, i, height - values[i]);
+        rect(i * 10, height - values[i], 10, height);
+      }
+    }
+  </script>
+</html>

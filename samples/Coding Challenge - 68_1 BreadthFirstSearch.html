@@ -1,0 +1,41 @@
+<!-- https://www.youtube.com/watch?v=piBq7VD0ZSo -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/node_68_1.js"></script>
+    <script src="code/graph_68_1.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var data;
+    var graph;
+
+    function preload() {
+      data = loadJSON("json/movies.json");
+    }
+
+    function setup() {
+      graph = new Graph();
+      createCanvas(800, 800);
+      background(51);
+      console.log(data);
+      var movies = data.movies;
+      console.log(movies);
+      for(var i = 0;i<movies.length;i++){
+        var movie = movies[i].title;
+        var cast = movies[i].cast;
+        console.log(movie + " " + cast);
+        
+        var node = new Node(movie); 
+        graph.addNode(node);
+      }
+    }
+
+    function draw() {}
+  </script>
+</html>

@@ -1,0 +1,42 @@
+<!-- https://www.youtube.com/watch?v=0jjeOYMjmDU&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=18 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/tree_65.js"></script>
+    <script src="code/node.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var tree;
+
+    function setup() {
+      createCanvas(500, 500);
+      tree = new Tree();
+      //tree.addVal(50);
+      for(var i = 0; i< 10;i++){
+        tree.addVal(floor(random(10,100)));
+      }
+      tree.addVal(50);
+      console.log(tree);
+      tree.traverse();
+      var fnd = tree.search(50);
+      if(fnd != null){
+        console.log("found " + fnd.value);
+    }
+
+    }
+
+    function draw() {
+      background(51);
+    }
+
+    
+
+    
+  </script>
+</html>

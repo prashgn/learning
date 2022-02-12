@@ -1,0 +1,57 @@
+<!-- https://www.youtube.com/watch?v=unm0BLor8aE&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=46 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main>
+      <p>
+        Input:
+        <textarea id="input" rows="4" cols="50">
+this is for testing bro, lets see how it works. If not then we will keep trying.
+            </textarea
+        >
+        <br />
+        <button id="submit">Submit</button>
+        <br />
+      </p>
+
+      <p id="output"></p>
+    </main>
+  </body>
+  <script>
+    var txtField, output, submit, words;
+
+    function setup() {
+      noCanvas();
+      txtField = select("#input");
+      submit = select("#submit");
+      submit.mousePressed(newText);
+    }
+
+    function newText() {
+      var s = txtField.value();
+      words = s.split(/(\W+)/); //Adding the round brackets keeps the full stop and the commas. Words keeps , and .
+      for (var i = 0; i < words.length; i++) {
+        var span = createSpan(words[i]);
+        span.parent(output);
+
+        if (!/\W+/.test(words[i])) {
+          span.mouseOver(highlight);
+            //span.style("background-color", color(random(255),random(255),random(255)));
+          //createSpan(words[i] + " ");
+          //createP(words[i]);
+        }
+      }
+    }
+    function highlight() {
+        //console.log(this.html());
+        //this.html('rain'); //this will replace the text
+        var c = color(random(255),random(255),random(255));
+        this.style('background-color', c);
+    }
+  </script>
+</html>

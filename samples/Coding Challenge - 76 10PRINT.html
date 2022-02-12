@@ -1,0 +1,36 @@
+<!-- https://www.youtube.com/watch?v=0jjeOYMjmDU&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=18 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var x = 0;
+    var y = 0;
+    var spc = 10;
+
+    function setup() {
+      createCanvas(600, 600);
+      background(51);
+    }
+
+    function draw() {
+      stroke(0, 255, 0, 155);
+      if (random(1) > 0.5) {
+        line(x, y, x + spc, y + spc);
+      } else {
+        line(x, y + spc, x + spc, y);
+      }
+      x = x + spc;
+      if (x > width){
+        x = 0;
+        y = y + spc;
+      }
+    }
+  </script>
+</html>

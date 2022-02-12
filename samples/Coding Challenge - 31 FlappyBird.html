@@ -1,0 +1,53 @@
+<!-- https://www.youtube.com/watch?v=cXgA1d_E-jY&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=34 -->
+<!--  -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/bird.js"></script>
+    <script src="code/pipe.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var bird;
+    var pipes = [];
+    function setup() {
+      createCanvas(600, 600);
+      bird = new Bird();
+      pipes.push(new Pipe());
+    }
+
+    function draw() {
+      background(51);
+
+      if (frameCount % 120 == 0) {
+        pipes.push(new Pipe());
+      }
+
+      for (var i = pipes.length - 1; i >= 0; i--) {
+        pipes[i].update();
+        pipes[i].show();
+
+        if (pipes[i].offscreen()) {
+          pipes.splice(i, 1);
+        }
+        if (pipes[i].hits(bird)) {
+          console.log("hit");
+        }
+      }
+
+      bird.update();
+      bird.show();
+    }
+
+    function keyPressed() {
+      if (key == " ") {
+        bird.up();
+      }
+    }
+  </script>
+</html>

@@ -1,0 +1,45 @@
+<!-- https://www.youtube.com/watch?v=0jjeOYMjmDU&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=18 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="code/firework.js"></script>
+    <script src="code/particle.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var fireworks = [];
+    var gravity;
+
+    function setup() {
+      createCanvas(800, 700);
+      colorMode(HSB);
+      stroke(255);
+      strokeWeight(4);
+      garvity = createVector(0,0.2);
+      background(0);
+    }
+
+    function draw() {
+      colorMode(RGB);
+      background(0,0,0,25);
+      if(random(1) < 0.05){
+        fireworks.push(new Firework());
+      }
+
+      for(var i = fireworks.length - 1; i >= 0 ; i--){
+        fireworks[i].update();
+        fireworks[i].show();
+        if(fireworks[i].done() ){
+          fireworks.splice(i,1);
+        }
+      }
+      //console.log(fireworks.length);
+    }
+
+  </script>
+</html>

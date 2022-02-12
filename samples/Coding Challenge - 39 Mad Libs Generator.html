@@ -1,0 +1,32 @@
+<!-- https://www.youtube.com/watch?v=unm0BLor8aE&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=48 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+    <script src="addons/papaparse.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    
+    function setup() {
+      //createCanvas(200, 200);
+      Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vRB4E_6RnpLP1wWMjqcwsUvotNATB8Np3OntlXb7066ULcAHI9oqqRhucltFifPTYNd7DRNRE56oTdt/pub?output=csv', {
+          download: true,
+          header: true,
+          complete: function(results) {
+            var data = results.data
+            console.log(data)
+          }
+        })
+      }
+    function draw() {
+      background(51);
+
+    }
+
+  </script>
+</html>

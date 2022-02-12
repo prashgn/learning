@@ -1,0 +1,133 @@
+<!-- https://www.youtube.com/watch?v=9Xy-LMAfglE&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=41 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    var cities = [];
+    var citiescnt = 4;
+    var recordDistance;
+    var bestEver;
+    var order = [];
+
+    function setup() {
+      createCanvas(600, 600);
+      for (var i = 0; i < citiescnt ; i++) {
+        var v = createVector(random(width), random(height/2));
+        cities[i] = v;
+        order[i] = i;
+      }
+      var d = calcDistance(cities,order);
+      recordDistance = d;
+      bestEver = order.slice(); // to copy the array
+    }
+
+    function draw() {
+      /*to print the points*/
+      background(51);
+      fill(255);
+      for (var i = 0; i < cities.length; i++) {
+        ellipse(cities[i].x, cities[i].y, 8, 8);
+      }
+
+      /*to print the lines for all the points*/
+      stroke(255);
+      strokeWeight(1);
+      noFill();
+      beginShape();
+      for (var i = 0; i < order.length; i++) {
+        var n = order[i];
+        vertex(cities[n].x, cities[n].y);
+      }
+      endShape();
+
+      /*to print the lines for the best path*/
+      translate(0,height/2);
+      stroke(255, 0, 255);
+      strokeWeight(4);
+      noFill();
+      beginShape();
+      for (var i = 0; i < order.length; i++) {
+        var n = bestEver[i];
+        vertex(cities[n].x, cities[n].y);
+      }
+      endShape();
+
+      var d = calcDistance(cities,order);
+      if (d < recordDistance) {
+        recordDistance = d;
+        bestEver = order.slice();
+        console.log(recordDistance);
+      }
+
+      textSize(64);
+      var s = "";
+      for (var i = 0; i < order.length; i++) {
+        s += order[i];
+      }
+      fill(255);
+      text(s, 20, height/2 - 50);
+
+      nextOrder();
+      
+    }
+
+    function swap(arr, i, j) {
+      var tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+
+    function calcDistance(points,order) {
+      var sum = 0;
+      for (var i = 0; i < order.length - 1; i++) {
+        var cityA = points[order[i]];
+        var cityB = points[order[i+1]];
+        var d = dist(
+          cityA.x,
+          cityA.y,
+          cityB.x,
+          cityB.y
+        );
+        sum += d;
+      }
+      return sum;
+    }
+
+    function nextOrder() {
+      /*to find the position of the max element*/
+      var maxVali = -1;
+      for (var i = 0; i < order.length - 1; i++) {
+        if (order[i] < order[i + 1]) {
+          maxVali = i;
+        }
+      }
+      if (maxVali == -1) {
+        noLoop();
+        console.log("finished");
+      }
+      //Step 2
+      var maxValj = -1;
+      for (var j = 0; j < order.length; j++) {
+        if (order[maxVali] < order[j]) {
+          maxValj = j;
+        }
+      }
+      //Step 3
+      swap(order, maxVali, maxValj);
+
+      //Step 4 - reverse from maxI + 1 to the end
+      var endArray = order.splice(maxVali + 1);
+      endArray.reverse();
+      order = order.concat(endArray);
+
+      
+    }
+  </script>
+</html>

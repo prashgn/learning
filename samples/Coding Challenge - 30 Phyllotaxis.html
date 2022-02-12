@@ -1,0 +1,41 @@
+<!-- https://www.youtube.com/watch?v=KWoJgHFYWxY&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=33 -->
+<!-- http://algorithmicbotany.org/papers/abop/abop-ch4.pdf -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+
+    var c =4;  
+    var n= 0;
+
+    function setup() {
+      createCanvas(600, 600);
+      angleMode(DEGREES);
+      colorMode(HSB);
+      background(51);
+    }
+
+    function draw() {
+      var ang = n * 137.5; //137.3  //137.6
+      var r = c * sqrt(n);
+      var x = r * cos(ang) + (width/2);  //to have it at the center hence w and h divide by 2
+      var y = r * sin(ang) + (height/2); //to have it at the center hence w and h divide by 2
+
+      //fill(100,255,255);
+      //fill(ang % 256,255,255); // to make it multi color
+      //fill(n % 256,255,255); // to make it depended on n it also multi color
+      fill((ang
+      -n) % 255,255,255);
+      noStroke();
+      ellipse(x,y,4,8);
+      n++;
+    }
+  </script>
+</html>

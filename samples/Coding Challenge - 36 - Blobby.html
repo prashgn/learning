@@ -1,0 +1,35 @@
+<!-- https://www.youtube.com/watch?v=rX5p-QRP6R4&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=44 -->
+<html>
+  <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/sketch.js"></script>
+  </head>
+
+  <body>
+    <main></main>
+  </body>
+  <script>
+    
+    function setup() {
+      createCanvas(400, 400);
+     
+    }
+
+    function draw() {
+      background(51);
+      push();
+      translate(200,200);
+      beginShape();
+      for(var a = 0; a < TWO_PI; a +=0.1){
+        var x = 75 * cos(a);
+        var y = 75 * sin(a);
+        vertex(x + random(10,35),y + random(10,35));
+        //ellipse(x,y,4,4);
+      }
+      endShape();
+      pop();
+    }
+
+  </script>
+</html>
