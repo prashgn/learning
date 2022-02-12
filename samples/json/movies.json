@@ -1,0 +1,36 @@
+{
+    "movies": [{
+            "title": "Ram Lakhan",
+            "cast": [
+                "Jackie",
+                "Anil"
+            ]
+        }, {
+            "title": "Hum",
+            "cast": [
+                "Amit",
+                "Rajni"
+            ]
+        }, {
+            "title": "DDLG",
+            "cast": [
+                "Shahrukh",
+                "Anupam"
+            ]
+        }, {
+            "title": "Darr",
+            "cast": [
+                "Sunny",
+                "Shahrukh",
+                "Anupam"
+            ]
+        }, {
+            "title": "Tridev",
+            "cast": [
+                "Jackie",
+                "Nasurdin",
+                "Govinda"
+            ]
+        }
+    ]
+}
